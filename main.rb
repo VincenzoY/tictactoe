@@ -5,14 +5,14 @@ class Game
     @game_over = false
     #checks which player the game is on for player setup
     @player_one_turn = true
-    #false means y wins, true means x wins
+    #false means o wins, true means x wins
     @winner = false
   end
 
   def play
     puts "Welcome to the Game!"
     player_setup("X")
-    player_setup("Y") 
+    player_setup("O") 
     self.play_round
     self.end_screen
     self.play_again
@@ -27,10 +27,10 @@ class Game
       self.board
       self.check_game_over("X")
       @game_over ? break:
-      choose_spot("Y")
+      choose_spot("O")
       puts
       self.board
-      self.check_game_over("Y")
+      self.check_game_over("O")
     end
   end
 
@@ -41,21 +41,21 @@ class Game
       choice = gets.chomp
       if @allowed.include?(choice.to_i) && @allowed.include?(@spots[choice])
         @spots[choice] = piece
+        @player_one_turn = !@player_one_turn
       else 
         puts "That's not a valid spot."
         choose_spot("X")
       end
-      @player_one_turn = !@player_one_turn
     else 
       puts "#{@player_two}, choose a number to place your piece there."
       choice = gets.chomp
       if @allowed.include?(choice.to_i) && @allowed.include?(@spots[choice])
         @spots[choice] = piece
+        @player_one_turn = !@player_one_turn
       else 
         puts "That's not a valid spot."
-        choose_spot("Y")
+        choose_spot("O")
       end
-      @player_one_turn = !@player_one_turn
     end
   end
 
@@ -116,7 +116,7 @@ class Game
     puts
     if @winner == "X"
       puts "Congrats #{@player_one}! You win!"
-    elsif @winner == "Y"
+    elsif @winner == "O"
       puts "Congrats #{@player_two}! You win!"
     else
       puts "Nice try! It's a tie."
@@ -139,7 +139,6 @@ class Game
       self.play_again
     end
   end
-
 end
 
 x = Game.new
