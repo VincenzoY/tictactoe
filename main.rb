@@ -106,7 +106,7 @@ class Game
     end
 
     #all squares filled
-    if @spots.values.all? { |a| a == "X" || a == "Y" }
+    if @spots.values.all? { |a| a == "X" || a == "O" }
       @game_over = true
       @winner = "tie"
     end
